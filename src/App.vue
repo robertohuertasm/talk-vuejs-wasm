@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Open the console</h1>
-    <vue-slider ref="slider" v-model="value" :max="40000000"></vue-slider>
+    <vue-slider ref="slider" v-model="value" :max="400000000"></vue-slider>
     <div style="margin-top:20px">
       <button @click="jsLoop()" class="js-loop">JS Loop</button>
       <button @click="wsLoop()" class="ws-loop">WS Loop</button>
@@ -13,6 +13,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import vueSlider from 'vue-slider-component';
+import WasmWorker from '../wasm/wasm-worker/pkg';
 
 @Component({
   components: {
@@ -21,6 +22,12 @@ import vueSlider from 'vue-slider-component';
 })
 export default class App extends Vue {
   public value = 0;
+  private wasmWorker!: typeof WasmWorker;
+
+  constructor() {
+    super();
+    this.loadWasm();
+  }
 
   public jsLoop() {
     this.iter('jsLoop', () => {
@@ -36,8 +43,7 @@ export default class App extends Vue {
     this.iter(
       'wsLoop',
       () => {
-        // to be implemented
-        return 0;
+        return this.wasmWorker.calculate_loop(this.value);
       },
       '784fe0',
     );
@@ -47,11 +53,15 @@ export default class App extends Vue {
     this.iter(
       'wsIter',
       () => {
-        // to be implemented
-        return 0;
+        return this.wasmWorker.calculate_iter(this.value);
       },
       '8f0808',
     );
+  }
+
+  private async loadWasm() {
+    this.wasmWorker = await import('../wasm/wasm-worker/pkg');
+    console.log(`%c WASM Loaded `, `background: #049741; color: #fff`);
   }
 
   private iter(mark: string, fn: () => number, color: string = '959704'): void {
