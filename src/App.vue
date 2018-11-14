@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Open the console</h1>
-    <vue-slider ref="slider" v-model="value" :max="40000000"></vue-slider>
+    <vue-slider ref="slider" v-model="value" :max="400000000"></vue-slider>
     <div style="margin-top:20px">
       <button @click="jsLoop()" class="js-loop">JS Loop</button>
       <button @click="wsLoop()" class="ws-loop">WS Loop</button>
