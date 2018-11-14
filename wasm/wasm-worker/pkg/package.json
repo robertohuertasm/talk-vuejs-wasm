@@ -1,0 +1,15 @@
+{
+  "name": "wasm-worker",
+  "collaborators": [
+    "Roberto Huertas <roberto.huertas@outlook.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "wasm_worker_bg.wasm",
+    "wasm_worker.js",
+    "wasm_worker.d.ts"
+  ],
+  "module": "wasm_worker.js",
+  "types": "wasm_worker.d.ts",
+  "sideEffects": "false"
+}

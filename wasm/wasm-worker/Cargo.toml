@@ -1,0 +1,10 @@
+[package]
+name = "wasm-worker"
+version = "0.1.0"
+authors = ["Roberto Huertas <roberto.huertas@outlook.com>"]
+
+[lib]
+crate-type = ['cdylib']
+
+[dependencies]
+wasm-bindgen = "0.2.27"
